@@ -1,7 +1,6 @@
 {
     "name": "@lsby/relation",
     "version": "0.0.1",
-    "description": "",
     "main": "dist/index.js",
     "scripts": {
         "dev": "npm run watch",
@@ -29,5 +28,19 @@
     "dependencies": {
         "@lsby/ts_type_fun": "^0.0.9",
         "@we-mobius/mobius-utils": "^1.4.1"
-    }
+    },
+    "types": "./dist\\index.d.ts",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lsby/relation.git"
+    },
+    "keywords": [],
+    "bugs": {
+        "url": "https://github.com/lsby/relation/issues"
+    },
+    "homepage": "https://github.com/lsby/relation#readme",
+    "description": ""
 }
