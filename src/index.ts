@@ -41,23 +41,27 @@ export function Data组(...arr: any): any {
 }
 
 // 函数
-export function 描述关系1<A, B>(a: Data<A>, arr: [Data<B>], f: (a: [B], past: A) => A): void {
+export function 设置关系1<A, B>(a: Data<A>, arr: [Data<B>], f: (a: [B], past: A) => A): void {
     var fm = Mutation.ofLiftBoth((data: Vacuo | [B], past: Terminator | A) => {
         if (isVacuo(data)) return TERMINATOR
         if (isTerminator(past)) return TERMINATOR
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
-export function 描述关系2<A, B, C>(a: Data<A>, arr: [Data<B>, Data<C>], f: (a: [B, C], past: A) => A): void {
+export function 设置关系2<A, B, C>(a: Data<A>, arr: [Data<B>, Data<C>], f: (a: [B, C], past: A) => A): void {
     var fm = Mutation.ofLiftBoth((data: Vacuo | [B, C], past: Terminator | A) => {
         if (isVacuo(data)) return TERMINATOR
         if (isTerminator(past)) return TERMINATOR
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
-export function 描述关系3<A, B, C, D>(
+export function 设置关系3<A, B, C, D>(
     a: Data<A>,
     arr: [Data<B>, Data<C>, Data<D>],
     f: (a: [B, C, D], past: A) => A,
@@ -68,8 +72,10 @@ export function 描述关系3<A, B, C, D>(
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
-export function 描述关系4<A, B, C, D, E>(
+export function 设置关系4<A, B, C, D, E>(
     a: Data<A>,
     arr: [Data<B>, Data<C>, Data<D>, Data<E>],
     f: (a: [B, C, D, E], past: A) => A,
@@ -80,8 +86,10 @@ export function 描述关系4<A, B, C, D, E>(
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
-export function 描述关系5<A, B, C, D, E, F>(
+export function 设置关系5<A, B, C, D, E, F>(
     a: Data<A>,
     arr: [Data<B>, Data<C>, Data<D>, Data<E>, Data<F>],
     f: (a: [B, C, D, E, F], past: A) => A,
@@ -92,6 +100,8 @@ export function 描述关系5<A, B, C, D, E, F>(
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
 
 type 取内部值<A> = A extends Data<infer a> ? a : error<'输入不是Data类型'>
@@ -102,7 +112,7 @@ type 取数组内部值<A> = A extends []
         ? [取内部值<a>, ...取数组内部值<as>]
         : error<'输入不是Data类型组'>
     : error<'输入不是Data类型组'>
-export function 描述关系<A, Arr extends Data<any>[], 数组内部值 = 取数组内部值<Arr>>(
+export function 设置关系<A, Arr extends Data<any>[], 数组内部值 = 取数组内部值<Arr>>(
     a: Data<A>,
     arr: Arr,
     f: (a: 数组内部值, past: A) => A,
@@ -113,6 +123,8 @@ export function 描述关系<A, Arr extends Data<any>[], 数组内部值 = 取�
         return f(data, past)
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
+    // @ts-ignore
+    for (var v of arr) 刷新值(v)
 }
 
 export function 设置值<A>(a: Data<A>, x: A): void {
@@ -123,4 +135,7 @@ export function 取值<A>(a: Data<A>): A {
 }
 export function 描述副作用<A>(a: Data<A>, f: (a: A) => Promise<void>) {
     a[1].subscribeValue((a) => f(a))
+}
+export function 刷新值<A>(a: Data<A>) {
+    a[1].mutate(() => a[1].value)
 }
