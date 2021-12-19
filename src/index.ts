@@ -121,11 +121,5 @@ export function 取值<A>(a: Data<A>): A {
     return a[1].value
 }
 export function 描述副作用<A>(a: Data<A>, f: (a: A) => void) {
-    var 历史值: A | null = null
-    a[1].subscribeValue((a) => {
-        if (历史值 == null || 历史值 != a) {
-            历史值 = a
-            f(a)
-        }
-    })
+    a[1].subscribeValue((a) => f(a))
 }
