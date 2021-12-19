@@ -1,5 +1,5 @@
 import 'mocha'
-import { Data, 取值, 描述关系2, 设置值 } from '../src/index'
+import { Data, 取值, 描述关系2, 描述副作用, 设置值 } from '../src/index'
 import * as tools from '@lsby/js_tools'
 
 describe('测试组', function () {
@@ -9,6 +9,7 @@ describe('测试组', function () {
         var c = Data(0)
 
         描述关系2(c, [a, b], ([a, b]) => a + b)
+        描述副作用(c, async (a) => console.log(a))
 
         设置值(a, 1)
         设置值(b, 2)

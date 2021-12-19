@@ -120,6 +120,6 @@ export function 设置值<A>(a: Data<A>, x: A): void {
 export function 取值<A>(a: Data<A>): A {
     return a[1].value
 }
-export function 描述副作用<A>(a: Data<A>, f: (a: A) => void) {
+export function 描述副作用<A>(a: Data<A>, f: (a: A) => Promise<void>) {
     a[1].subscribeValue((a) => f(a))
 }
