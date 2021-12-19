@@ -93,6 +93,7 @@ export function 描述关系5<A, B, C, D, E, F>(
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
 }
+
 type 取内部值<A> = A extends Data<infer a> ? a : error<'输入不是Data类型'>
 type 取数组内部值<A> = A extends []
     ? []
@@ -101,7 +102,6 @@ type 取数组内部值<A> = A extends []
         ? [取内部值<a>, ...取数组内部值<as>]
         : error<'输入不是Data类型组'>
     : error<'输入不是Data类型组'>
-
 export function 描述关系<A, Arr extends Data<any>[], 数组内部值 = 取数组内部值<Arr>>(
     a: Data<A>,
     arr: Arr,
@@ -114,6 +114,7 @@ export function 描述关系<A, Arr extends Data<any>[], 数组内部值 = 取�
     })
     pipeAtom(combineLatestT(arr.map((a) => a[1])), fm, a[1])
 }
+
 export function 设置值<A>(a: Data<A>, x: A): void {
     a[1].mutate(() => x)
 }
