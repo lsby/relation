@@ -7,6 +7,8 @@
 ## 快速开始
 
 ```typescript
+import { Data, 取值, 描述关系2, 描述副作用, 设置值 } from '@lsby/relation'
+
 // 定义值
 var a = Data(0)
 var b = Data(0)
