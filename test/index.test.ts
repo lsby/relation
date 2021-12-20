@@ -1,5 +1,5 @@
 import 'mocha'
-import { Data, 取值, 设置关系2, 描述副作用, 设置值 } from '../src/index'
+import { Data, 取值, 设置关系, 描述副作用, 设置值 } from '../src/index'
 import * as tools from '@lsby/js_tools'
 
 describe('测试组', function () {
@@ -14,7 +14,7 @@ describe('测试组', function () {
 
         // 设置值与值的关系: c = a + b
         // 设置后, 被设置的值立即被计算.
-        设置关系2(c, [a, b], ([a, b]) => a + b)
+        设置关系(c, [a, b], ([a, b]) => a + b)
         // 此时, c被设置为3, 触发副作用.
 
         设置值(a, 3)
@@ -22,5 +22,7 @@ describe('测试组', function () {
 
         设置值(b, 4)
         // 此时, c被设置为7, 触发副作用.
+
+        tools.断言相等(取值(c), 7)
     })
 })
