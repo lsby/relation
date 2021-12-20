@@ -8,11 +8,13 @@ import {
     Terminator,
     TERMINATOR,
     Vacuo,
+    DataSubscription,
 } from '@we-mobius/mobius-utils'
 import { error } from '@lsby/ts_type_fun'
 
 // 类型定义
 export type Data<A> = ['Data', MData<A>]
+export type 副作用句柄<A> = ['副作用句柄', DataSubscription<A>]
 
 // 构造子
 export function Data<A>(a: A): Data<A> {
@@ -49,8 +51,12 @@ export function 设置值<A>(a: Data<A>, x: A): void {
 export function 取值<A>(a: Data<A>): A {
     return a[1].value
 }
-export function 描述副作用<A>(a: Data<A>, f: (a: A) => Promise<void>) {
-    a[1].subscribeValue((a) => f(a))
+export function 描述副作用<A>(a: Data<A>, f: (a: A) => Promise<void>): 副作用句柄<A> {
+    var 句柄 = a[1].subscribeValue((a) => f(a))
+    return ['副作用句柄', 句柄]
+}
+export function 取消副作用<A>(句柄: 副作用句柄<A>): void {
+    句柄[1].unsubscribe()
 }
 export function 刷新值<A>(a: Data<A>) {
     a[1].mutate(() => a[1].value)
