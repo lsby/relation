@@ -12,7 +12,7 @@ import {
 import { error } from '@lsby/ts_type_fun'
 
 // 类型定义
-type Data<A> = ['Data', MData<A>]
+export type Data<A> = ['Data', MData<A>]
 
 // 构造子
 export function Data<A>(a: A): Data<A> {
@@ -104,8 +104,8 @@ export function 设置关系5<A, B, C, D, E, F>(
     for (var v of arr) 刷新值(v)
 }
 
-type 取内部值<A> = A extends Data<infer a> ? a : error<'输入不是Data类型'>
-type 取数组内部值<A> = A extends []
+export type 取内部值<A> = A extends Data<infer a> ? a : error<'输入不是Data类型'>
+export type 取数组内部值<A> = A extends []
     ? []
     : A extends [infer a, ...infer as]
     ? 取数组内部值<as> extends any[]
