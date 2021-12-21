@@ -78,6 +78,11 @@ export function 描述副作用<A>(a: Data<A>, f: (a: A) => Promise<void>): 副�
     var 句柄 = a[1].subscribeValue((a) => f(a))
     return ['副作用句柄', 句柄]
 }
+export function 设置副作用<A>(a: Data<A>, f: (a: A) => Promise<void>): 副作用句柄<A> {
+    var c = 描述副作用(a, f)
+    _刷新值(a)
+    return c
+}
 export function 取消副作用<A>(句柄: 副作用句柄<A>): void {
     句柄[1].unsubscribe()
 }

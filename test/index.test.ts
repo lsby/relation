@@ -1,5 +1,5 @@
 import 'mocha'
-import { Data, 取值, 描述副作用, 设置值, 取消副作用, 创建关系值 } from '../src/index'
+import { Data, 取值, 描述副作用, 设置值, 取消副作用, 创建关系值, 设置副作用 } from '../src/index'
 import { 断言相等 } from '@lsby/js_tools'
 
 describe('测试组', function () {
@@ -12,8 +12,11 @@ describe('测试组', function () {
         var c = 创建关系值([a, b], ([a, b]) => a + b)
         断言相等(取值(c), 3)
 
-        // 可以描述c变化后的行为
-        var 副作用句柄 = 描述副作用(c, async (a) => console.log(a))
+        // 可以设置c变化后的行为
+        var 副作用句柄 = 设置副作用(c, async (a) => console.log(a))
+        // 此时, a=1, b=2, c=a+b=3, 设置副作用会立即执行一次, 会打印出3.
+        // 也可以仅描述副作用, 而不触发.
+        // var 副作用句柄 = 描述副作用(c, async (a) => console.log(a))
 
         设置值(a, 3)
         // 此时, a=3, b=2, c=a+b=5, 触发副作用打印出5.
